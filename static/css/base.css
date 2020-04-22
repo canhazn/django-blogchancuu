@@ -1,0 +1,14 @@
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 17px;
+    background-color: #1a1a1a;
+}
+
+.top-nav {
+    background-color: #1a1a1a;
+}
+
+.card {
+    background-color: #2b2b2b;
+    color: #fff;
+}
