@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.views import generic
@@ -11,9 +11,9 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
 
-class PostDetail(generic.DetailView):
-    model = Post
-    template_name = 'post_detail.html'
+# class PostDetail(generic.DetailView):
+#     model = Post
+#     template_name = 'post_detail.html'
 
 def post_detail(request, slug):
     template_name = 'post_detail.html'
@@ -33,13 +33,14 @@ def post_detail(request, slug):
             new_comment.post = post
             # Save the comment to the database
             new_comment.save()
-
+            return redirect("/" + str(post.slug))
     else:
         comment_form = CommentForm()
 
+    print(request.POST)
     return render(request, template_name, {
         'post': post,
         'comments': comments,
         'new_comment': new_comment,
-        'comment_form': comment_form
+        'comment_form': CommentForm()
     })

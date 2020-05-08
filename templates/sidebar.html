@@ -21,6 +21,7 @@
                         d="M5.5 3.5A1.5 1.5 0 017 5v6a1.5 1.5 0 01-3 0V5a1.5 1.5 0 011.5-1.5zm5 0A1.5 1.5 0 0112 5v6a1.5 1.5 0 01-3 0V5a1.5 1.5 0 011.5-1.5z" />
                 </svg>
             </button>
+            
         </nav>
         <h5 class="card-header">Kho báu nằm ở đâu?</h5>
 
@@ -46,8 +47,10 @@
     // let album = ['b1.mp3', 'b2.mp3'];
     album = album.map((track) => "{% static 'music/' %}" + track);
     let activeTrack = Math.floor(Math.random() * album.length);
-    let audioManager = new Audio(album[activeTrack]);    
-    console.log(album[activeTrack]);
+    let audioManager = new Audio(album[activeTrack]); 
+    audioManager.preload = "auto";
+    // console.log(audioManager.preload);
+    // console.log(album[activeTrack]);
     $(".bi-pause-fill").hide();
     $("#play-btn").click(() => {
         $("#play-btn").button('toggle');
@@ -67,6 +70,7 @@
         if ((newTrack == activeTrack) && (newTrack == album.length - 1)) newTrack--;
         activeTrack = newTrack != activeTrack ? newTrack : Math.floor((newTrack + album.length) / 2);        
         audioManager.src = album[activeTrack];
+        audioManager.preload = "auto";
         audioManager.play();
     });
 </script>

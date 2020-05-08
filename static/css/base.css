@@ -1,7 +1,7 @@
 body {
     font-family: "Roboto", sans-serif;
     font-size: 17px;
-    background-color: #1a1a1a;
+    background-color: #202124;
 }
 
 .top-nav {
@@ -11,4 +11,42 @@ body {
 .card {
     background-color: #2b2b2b;
     color: #fff;
+}
+
+.form-control-comment {
+    background-color: #3b3b3b !important;
+    color: white !important;
+    border: none !important;
+}
+
+.post {
+    width: 240px;
+    background-color: #202124;
+    border: 1px solid #5f6368;
+    border-radius: 8px;
+}
+
+.post:hover {
+    border: 1px solid #9ea3a8;
+    text-decoration: none;
+}
+
+.post-title {
+    padding: 12px 16px 0 16px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #e8eaed;
+}
+
+.post-content {
+    padding: 16px;
+    font-size: 16px;
+    color: #e8eaed;
+}
+
+@media screen and (max-width: 600px) {
+    .post {
+        width: 100%;
+    }
 }
