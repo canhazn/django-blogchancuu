@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'blogchancuu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blogchancuudata',
+        'USER': 'canhazn',
+        'PASSWORD': '9pu056094',
+        'HOST': '34.84.76.164',
+        'PORT': '5432'
     }
 }
 
