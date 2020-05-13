@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'blogchancuu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blogchancuudata',
-        'USER': 'canhazn',
+        'NAME': 'blogchancuu_aws_postgres',
+        'USER': 'postgres',
         'PASSWORD': '9pu056094',
-        'HOST': '34.84.76.164',
+        'HOST': 'blogchancuu-postgres.cefhp2gbw8ow.ap-northeast-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
