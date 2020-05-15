@@ -4,23 +4,13 @@
 
     <div class="row">
         <div class="col-md-8 mx-auto mt-3">
-            <!-- <div class="card-body card">
-                <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
-                <p class=" text-muted">{{ post.created_on }}</p>
-                <div class="">{{ post.content | safe }}</div>
-            </div> -->
-
-
-
             <div class="post-detail mb-4">
                 {% if post.title %}
                 <h2 class="post-title">{{ post.title }}</h2>
                 {% endif %}
-                <p class=" text-muted">{{ post.created_on }}</p>
                 <div class="post-content">{{ post.content| safe }}</div>
+                <p class=" text-muted">{{ post.created_on | date:"P d/m/y" }}</p>
             </div>
-
-
 
             {% with comments.count as total_comments %} {% if total_comments %}
             <div class="card-body card mb-4 mt-3">
@@ -31,8 +21,8 @@
                     <p class="font-weight-bold">
                         {{ comment.name }}
                         <span class=" text-muted font-weight-normal">
-                {{ comment.created_on }}
-              </span>
+                            {{ comment.created_on }}
+                        </span>
                     </p>
                     {{ comment.body | linebreaks }}
                 </div>
@@ -49,21 +39,18 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="input-group">
-                        <input type="text" name="name" placeholder="Tên..." id="nameinput" class="form-control form-control-comment text-white mr-3">
-                        <input type="text" name="email" placeholder="Email, số điện thoại..." id="emailinput" class="form-control form-control-comment text-white">
+                        <input type="text" name="name" placeholder="Tên..." id="nameinput"
+                            class="form-control form-control-comment text-white mr-3">
+                        <input type="text" name="email" placeholder="Email, số điện thoại..." id="emailinput"
+                            class="form-control form-control-comment text-white">
                     </div>
                     <div class="form-group">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control form-control-comment text-white" name="body" placeholder="Thêm bình luận..." rows="3"></textarea>
+                        <textarea class="form-control form-control-comment text-white" name="body"
+                            placeholder="Thêm bình luận..." rows="3"></textarea>
                     </div>
-                    <!-- <div class="input-group mb-3">
-            <input type="text" name="email" placeholder="Email"..." class="form-control form-control-comment text-white">
-          </div>
-          <p>name</p>
-          {{ comment_form.name }} -->
                     <input class="btn btn-primary  btn-lg" type="submit" value="Đăng">
-                    <!-- <button type="submit" class="btn btn-primary  btn-lg">Submit</button> -->
                 </form>
                 {% endif %}
             </div>
