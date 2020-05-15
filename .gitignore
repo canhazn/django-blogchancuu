@@ -1,6 +1,6 @@
 /venv
 /.venv
 
-blogchancuu/__pycache__
 post/__pycache__
 post/migrations
+blogchancuu/__pycache__/
