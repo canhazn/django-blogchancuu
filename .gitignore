@@ -1,5 +1,5 @@
 /venv
 /.venv
 
-/blogchancuu/__pycache__
-/post/__pycache__
+blogchancuu/__pycache__
+post/__pycache__
