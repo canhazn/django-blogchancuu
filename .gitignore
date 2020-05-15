@@ -1,8 +1,4 @@
 /venv
 /.venv
 
-post/__pycache__
-post/migrations
-/blogchancuu/__pycache__/
-# blogchancuu/__pycache__/settings.cpython-38.pyc
-# blogchancuu/__pycache__/settings.cpython-38.pyc
+*__pycache__*
