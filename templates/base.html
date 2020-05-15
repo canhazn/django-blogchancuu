@@ -25,15 +25,17 @@
         crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extrahead %}{% endblock extrahead %}
 </head>
 
 <body>
-    <!-- Navigation -->
-    <!-- <nav class="top-nav navbar navbar-expand-lg shadow" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand text-white font-italic font-weight-bolder" href="{% url 'home' %}">BLOGCHANCUU </a>
-        </div>
-    </nav> -->
+    <div class="container">
+        <nav class="navbar">
+            <a class="navbar-brand text-white font-italic font-weight-bolder" href="{% url 'home' %}">BLOGCHANCUU
+            </a>
+        </nav>
+    </div>
+    <br>
     {% block content %}
     <!-- Content Goes here -->
     {% endblock content %}
