@@ -1,4 +1,9 @@
-{% extends 'base.html' %} {% block content %} {% block header %} {% include 'header.html' %} {% endblock header %}
+{% extends "base.html" %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/post-detail.css' %}">
+{% endblock extrahead %}
+{% block content %}
 
 <div class="container">
 
@@ -9,7 +14,9 @@
                 <h2 class="post-title">{{ post.title }}</h2>
                 {% endif %}
                 <div class="post-content">{{ post.content| safe }}</div>
-                <p class=" text-muted">{{ post.created_on | date:"P d/m/y" }}</p>
+                <div class="botton-nav">
+                    <p class="created-on text-muted text-right">{{ post.created_on | date:"P d/m/y" }}</p>
+                </div>
             </div>
 
             {% with comments.count as total_comments %} {% if total_comments %}
@@ -20,7 +27,7 @@
                 <div class="comments" style="padding: 10px;">
                     <p class="font-weight-bold">
                         {{ comment.name }}
-                        <span class=" text-muted font-weight-normal">
+                        <span class="text-muted font-weight-normal">
                             {{ comment.created_on }}
                         </span>
                     </p>
