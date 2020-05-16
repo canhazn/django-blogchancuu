@@ -42,12 +42,6 @@
     display: block; */
 }
 
-.post-bottom-bar {
-    height: 15px;
-    /* margin: 15px; */
-    /* background-color: #fff; */
-}
-
 @media screen and (max-width: 600px) {
     .post {
         width: 100%;
