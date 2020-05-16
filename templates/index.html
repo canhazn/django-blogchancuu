@@ -4,29 +4,8 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock extrahead %}
 {% block content %}
-
 <script src="https://unpkg.com/magic-grid@3.1.2/dist/magic-grid.min.js"></script>
-<style>
-    
-    .post:hover {
-        border: 1px solid #9ea3a8;
-        text-decoration: none;
-    }
-
-    .post-title {
-        padding: 12px 16px 0 16px;
-        margin: 0;
-        font-size: 18px;
-        font-weight: 500;
-        color: #e8eaed;
-    }
-
-    @media screen and (max-width: 600px) {
-        .post {
-            width: 100%;
-        }
-    }
-</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.0.11/dotdotdot.js"></script>
 <div class="container">
 
     <!-- Blog Entries Column -->
@@ -37,7 +16,7 @@
             <h2 class="post-title">{{ post.title }}</h2>
             {% endif %}
             <div class="post-content">{{ post.content| safe }}</div>
-
+            <div class="post-bottom-bar"></div>
         </a> {% endfor %}
     </div>
 </div>
@@ -52,5 +31,8 @@
     });
 
     magicGrid.listen();
+
+    $(".post-content").dotdotdot();
+
 </script>
 {%endblock%}
