@@ -11,15 +11,24 @@ STATUS = (
 	(1, "Publish")
 )
 
-class Post(models.Model): 
+class Tag(models.Model):
+	title = models.CharField(max_length=200, null=True, blank=False)
+	slug = models.SlugField(max_length=200, null=True, blank=False)
+	created_on = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.title
+
+class Post(models.Model):
 	title = models.CharField(max_length=200, null=True, blank=True)
-	slug  = models.SlugField(max_length=200, null=True, blank=True)	
+	slug  = models.SlugField(max_length=200, null=True, blank=True)
 	# author = models.ForeignKey(User, on_delete= models.CASCADE, related_name="blog_posts")
 	update_on = models.DateTimeField(auto_now= True)
 	content = models.TextField()
 	created_on = models.DateTimeField(auto_now_add= True)
 	# created_on = models.DateTimeField(editable=False, default=timezone.now)
 	status = models.IntegerField(choices= STATUS, default=1)
+	tag = models.ManyToManyField(Tag)
 
 	class Meta:
 		ordering = ['-created_on']

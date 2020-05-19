@@ -14,8 +14,13 @@
                 <h2 class="post-title">{{ post.title }}</h2>
                 {% endif %}
                 <div class="post-content">{{ post.content| safe }}</div>
-                <div class="botton-nav">
-                    <p class="created-on text-muted text-right">{{ post.created_on | date:"P d/m/y" }}</p>
+                <div class="botton-nav d-flex justify-content-between align-self-baseline">
+                    <div class="tags">
+                        {% for tag in post.tag.all %}                
+                        <a href="{% url 'tag_detail' tag.slug %}" class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a href="{% url 'tag_detail' tag.slug %}">
+                        {% endfor %}
+                    </div>
+                    <span class="created-on text-muted text-right">{{ post.created_on | date:"P d/m/y" }}</span>
                 </div>
             </div>
 
@@ -28,7 +33,7 @@
                     <p class="font-weight-bold">
                         {{ comment.name }}
                         <span class="text-muted font-weight-normal">
-                            {{ comment.created_on }}
+                        {{ comment.created_on }}
                         </span>
                     </p>
                     {{ comment.body | linebreaks }}
