@@ -2,20 +2,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.views import generic
-from .models import Post
+from .models import Post, Tag
 
 from .forms import CommentForm
 
 
-class PostList(generic.ListView):
+def postList(request):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'index.html'
+    # tags = Post  .tag.all()
+
+    return render(request, 'index.html', {
+        'posts': queryset,
+        # 'tags': tags
+    })
 
 # class PostDetail(generic.DetailView):
 #     model = Post
-#     template_name = 'post_detail.html'
+#     template_name = 'postDetail.html'
 
-def post_detail(request, slug):
+def postDetail(request, slug):
     template_name = 'post_detail.html'
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(active=True)
@@ -44,3 +49,12 @@ def post_detail(request, slug):
         'new_comment': new_comment,
         'comment_form': CommentForm()
     })
+
+def tagDetail(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    posts = tag.post_set.all()
+    context = {
+        'tag': tag,
+        'posts': posts
+    }
+    return render(request, 'tag_detail.html', context)
