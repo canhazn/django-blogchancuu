@@ -19,7 +19,7 @@
             <div class="botton-nav d-flex justify-content-between align-self-baseline">
                 <div class="tags">
                     {% for tag in post.tag.all %}                
-                    <span class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</span>
+                    <a href="{% url 'tag_detail' tag.slug %}" class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a href="{% url 'tag_detail' tag.slug %}">
                     {% endfor %}
                 </div>      
                 <div></div>          
