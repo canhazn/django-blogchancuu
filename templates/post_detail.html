@@ -17,7 +17,7 @@
                 <div class="botton-nav d-flex justify-content-between align-self-baseline">
                     <div class="tags">
                         {% for tag in post.tag.all %}                
-                        <a href="{% url 'tag_detail' tag.slug %}" class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a href="{% url 'tag_detail' tag.slug %}">
+                        <a href="{% url 'tag_detail' tag.slug %}" class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a>
                         {% endfor %}
                     </div>
                     <span class="created-on text-muted text-right">{{ post.created_on | date:"P d/m/y" }}</span>

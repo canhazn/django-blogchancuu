@@ -8,23 +8,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.0.11/dotdotdot.js"></script>
 <div class="container">
 
-    <!-- Blog Entries Column -->
+    <div class="col text-right mb-4">
+        <span>
+            {{ tag.title }}
+        </span>
+    </div>
+
     <div class="container-post">
         {% for post in posts %}
-        <a class="post mb-4" href="{% url 'post_detail' post.slug  %}">
+        <div class="post mb-4" data-post-slug="{{ post.slug }}">
             {% if post.title %}
             <h2 class="post-title">{{ post.title }}</h2>
             {% endif %}
             <div class="post-content">{{ post.content| safe }}</div>
             <div class="botton-nav d-flex justify-content-between align-self-baseline">
                 <div class="tags">
-                    {% for tag in post.tag.all %}                
-                    <span class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</span>
+                    {% for tag in post.tag.all %}
+                    <!-- <span class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</span> -->
+                    <a href="{% url 'tag_detail' tag.slug %}"
+                        class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a>
                     {% endfor %}
-                </div>      
-                <div></div>          
+                </div>
+                <div></div>
             </div>
-        </a> {% endfor %}
+        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -40,6 +48,14 @@
     magicGrid.listen();
 
     $(".post-content").dotdotdot();
+
+    $('.post').click(function (event) {
+        let slug = $(this).data().postSlug;
+
+        if (!event.target.className.includes('tag')) {
+            window.location.href = '../../' + slug
+        }
+    });
 
 </script>
 {%endblock%}
