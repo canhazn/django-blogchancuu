@@ -10,8 +10,15 @@
 
     <!-- Blog Entries Column -->
     <div class="container-post">
-        {% for post in posts %}
-        <div class="post mb-4" data-post-slug="{{ post.slug }}">
+        {% for post in posts %}        
+        <div class="post mb-4 overflow-hidden" data-post-slug="{{ post.slug }}">
+            <div class="w-100 d-flex flex-row">
+                {% for image in post.images.all %}
+                <div class="flex-grow-1">
+                    <img class="w-100" src="{{ image.img_file.url }}" />
+                </div>
+                {% endfor %}
+            </div>
             {% if post.title %}
             <h2 class="post-title">{{ post.title }}</h2>
             {% endif %}
@@ -44,7 +51,7 @@
 
     $(".post-content").dotdotdot();
 
-    $('.post').click(function(event){
+    $('.post').click(function (event) {
         let slug = $(this).data().postSlug;
 
         if (!event.target.className.includes('tag')) {

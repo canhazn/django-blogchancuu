@@ -9,7 +9,14 @@
 
     <div class="row">
         <div class="col-md-8 mx-auto mt-3">
-            <div class="post-detail mb-4">
+            <div class="post-detail mb-4 overflow-hidden">
+                <div class="w-100 d-flex flex-row">
+                    {% for image in post.images.all %}
+                    <div class="flex-grow-1">
+                        <img class="w-100" src="{{ image.img_file.url }}" />
+                    </div>
+                    {% endfor %}
+                </div>
                 {% if post.title %}
                 <h2 class="post-title">{{ post.title }}</h2>
                 {% endif %}

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
     'post',
     'django_summernote',
 ]
@@ -144,27 +145,27 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+if not DEBUG:
+    #S3 BUCKETS CONFIG
+    AWS_ACCESS_KEY_ID = 'AKIAYN6DG2LSW4JRYFF2'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'blogchancuu-bucket'
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = None
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-#S3 BUCKETS CONFIG
-AWS_ACCESS_KEY_ID = 'AKIAYN6DG2LSW4JRYFF2'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'blogchancuu-bucket'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-
-'''
-<?xml version="1.0" encoding="UTF-8"?>
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-<CORSRule>
-    <AllowedOrigin>*</AllowedOrigin>
-    <AllowedMethod>GET</AllowedMethod>
-    <AllowedMethod>POST</AllowedMethod>
-    <AllowedMethod>PUT</AllowedMethod>
-    <AllowedHeader>*</AllowedHeader>
-</CORSRule>
-</CORSConfiguration>
-'''
+    '''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>PUT</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+    </CORSConfiguration>
+    '''
