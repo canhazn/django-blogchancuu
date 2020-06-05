@@ -1,8 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Post, Comment, Tag
+from .models import Post, Comment, Tag, Image
 from django_summernote.admin import SummernoteModelAdmin
+from django.utils.html import format_html
+
 
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
@@ -34,3 +36,14 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title', )}
 
 admin.site.register(Tag, TagAdmin)
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('image_tag', 'created_on', 'post')
+    # prepopulated_fields = {'slug': ('title', )}
+
+    def image_tag(self, obj):
+        return format_html('<img src="{}"/>'.format(obj.img_file.url))
+    
+    image_tag.short_description = "Image"
+
+admin.site.register(Image, ImageAdmin)

@@ -11,21 +11,38 @@
     <!-- Blog Entries Column -->
     <div class="container-post">
         {% for post in posts %}
-        <div class="post mb-4" data-post-slug="{{ post.slug }}">
+        <div class="post mb-4 overflow-hidden" data-post-slug="{{ post.slug }}">
+            <!-- post images -->
+            {% if post.images.all.count > 0 %}
+                <div class="w-100 d-flex flex-row">
+                    {% for image in post.images.all %}
+                    <div class="flex-grow-1">
+                        <img class="w-100" src="{{ image.img_file.url }}" />
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <!-- end post images -->
+
             {% if post.title %}
             <h2 class="post-title">{{ post.title }}</h2>
             {% endif %}
+
+
             <div class="post-content">{{ post.content| safe }}</div>
-            <div class="botton-nav d-flex justify-content-between align-self-baseline">
+
+            <!-- post tag -->
+            {% if post.tag.all.count %}
+            <div class="p-3">
                 <div class="tags">
                     {% for tag in post.tag.all %}
-                    <!-- <span class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</span> -->
                     <a href="{% url 'tag_detail' tag.slug %}"
                         class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a>
                     {% endfor %}
-                </div>
-                <div></div>
+                </div>                
             </div>
+            {% endif %}
+            <!-- end post tag -->
         </div>
         {% endfor %}
     </div>
@@ -44,7 +61,7 @@
 
     $(".post-content").dotdotdot();
 
-    $('.post').click(function(event){
+    $('.post').click(function (event) {
         let slug = $(this).data().postSlug;
 
         if (!event.target.className.includes('tag')) {
