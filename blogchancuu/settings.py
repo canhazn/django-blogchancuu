@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'post',
     'django_summernote',
-    'rest_framework',
-    'api'
+    'rest_framework',    
 ]
 
 MIDDLEWARE = [
