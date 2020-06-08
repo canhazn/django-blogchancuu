@@ -6,21 +6,45 @@
 {% block content %}
 <script src="https://unpkg.com/magic-grid@3.1.2/dist/magic-grid.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.0.11/dotdotdot.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-router"></script>
+<script src="https://unpkg.com/vuex"></script>
 <div class="container">
+    <div id="app" >        
+        <post-list class="container-post"></post-list>
+    </div>
 
-    <!-- Blog Entries Column -->
-    <div class="container-post">
+    <template id="post-list-template">
+        <div>
+        <div class="post mb-4 overflow-hidden" v-for="post in posts">
+            <h2 class="post-title" v-html="post.title"></h2>
+            <div class="post-content" v-html="post.content"></div>
+            
+             <!-- post tag -->            
+            <div class="p-3" v-if="true">
+                <div class="tags" v-for="tag in post.tags">
+                    <a href=""
+                        class="tag badge badge-pill badge-dark font-weight-normal">[[ tag.title ]]</a>
+                </div>
+            </div>            
+            <!-- end post tag -->
+
+        </div>
+        </div>
+    </template>
+
+    {% comment %} <div class="container-post">
         {% for post in posts %}
         <div class="post mb-4 overflow-hidden" data-post-slug="{{ post.slug }}">
             <!-- post images -->
             {% if post.images.all.count > 0 %}
-                <div class="w-100 d-flex flex-row">
-                    {% for image in post.images.all %}
-                    <div class="flex-grow-1">
-                        <img class="w-100" src="{{ image.img_file.url }}" />
-                    </div>
-                    {% endfor %}
+            <div class="w-100 d-flex flex-row">
+                {% for image in post.images.all %}
+                <div class="flex-grow-1">
+                    <img class="w-100" src="{{ image.img_file.url }}" />
                 </div>
+                {% endfor %}
+            </div>
             {% endif %}
             <!-- end post images -->
 
@@ -39,16 +63,62 @@
                     <a href="{% url 'tag_detail' tag.slug %}"
                         class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a>
                     {% endfor %}
-                </div>                
+                </div>
             </div>
             {% endif %}
             <!-- end post tag -->
         </div>
         {% endfor %}
-    </div>
+    </div> {% endcomment %}
 </div>
 
 <script>
+    Vue.component('todo-item', {
+        template: '<li>This is a todo</li>'
+    })
+
+    PostList = Vue.component('post-list', {
+        delimiters: ['[[', ']]'],
+        data: function () { return { posts: store.state.posts } },
+        template: "#post-list-template"
+    })
+
+    const store = new Vuex.Store({
+        state: {
+            posts: [
+                {% for post in posts %}
+                    {
+                        title: '{{ post.title }}',
+                        slug: '{{ post.slug }}',
+                        content: {% if post.content %} `{{ post.content | safe}}` {% else %} null {% endif %}, 
+                        tags: {% if post.tag.all.count %}
+                                [
+                                    {% for tag in post.tag.all %}
+                                        { title: "{{ tag.title }}" },
+                                    {% endfor %}   
+                                ]
+                                {% else %}
+                                    null
+                                {% endif %},
+                    },
+                {% endfor %}
+                    ],
+            },
+        getter: {
+            getPostBySlug: state => slug => {
+                return stage.posts.find(posts => posts.slug === slug)
+            }
+        }
+        });
+
+    var app = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    })
+
     let magicGrid = new MagicGrid({
         container: '.container-post',
         animate: true,
