@@ -18,8 +18,7 @@
         <div  class="container-post">
             <post 
                 v-for="post in posts"
-                v-bind:title="post.title"
-                v-bind:content="post.content"
+                v-bind:post="post"
                 :key="post.slug"
             ></post>
          
@@ -28,48 +27,22 @@
 
     <template id="post-template">
         <div class="post mb-4 overflow-hidden">
-            <h2 class="post-title" v-html="title"></h2>
-            <div class="post-content" v-html="content"></div>
+
+            <div class="w-100 d-flex flex-row" v-if="post.images.length">                
+                <div class="flex-grow-1">
+                    <img class="w-100 post-images" v-for="image in post.images" :key="image.url" v-bind:src="image.url" />
+                </div>                
+            </div>
+
+
+            <h2 class="post-title" v-html="post.title"></h2>
+            <div class="post-content" v-html="post.content"></div>
+
+            <div class="tags p-3" v-if="post.tags.length > 0">            
+                <a class="tag badge badge-pill badge-dark font-weight-normal mr-3" v-for="tag in post.tags" :key="tag.slug" v-bind:href="'tag/' + tag.slug" v-html="tag.title"></a>
+            </div>
         </div>
     </template>
-
-    {% comment %} <div class="container-post">
-        {% for post in posts %}
-        <div class="post mb-4 overflow-hidden" data-post-slug="{{ post.slug }}">
-            <!-- post images -->
-            {% if post.images.all.count > 0 %}
-            <div class="w-100 d-flex flex-row">
-                {% for image in post.images.all %}
-                <div class="flex-grow-1">
-                    <img class="w-100" src="{{ image.img_file.url }}" />
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <!-- end post images -->
-
-            {% if post.title %}
-            <h2 class="post-title">{{ post.title }}</h2>
-            {% endif %}
-
-
-            <div class="post-content">{{ post.content| safe }}</div>
-
-            <!-- post tag -->
-            {% if post.tag.all.count %}
-            <div class="p-3">
-                <div class="tags">
-                    {% for tag in post.tag.all %}
-                    <a href="{% url 'tag_detail' tag.slug %}"
-                        class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-            <!-- end post tag -->
-        </div>
-        {% endfor %}
-    </div> {% endcomment %}
 </div>
 <script src="{% static 'js/index.js' %}"></script>
 {%endblock%}

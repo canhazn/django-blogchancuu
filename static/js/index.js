@@ -27,10 +27,17 @@ PostList = Vue.component('post-list', {
 });
 
 Post = Vue.component('post', {
-    props: ['title', 'content'],
+    props: ["post"],
     template: "#post-template",
     mounted: function () {
         $(".post-content").dotdotdot();
+        // $(this.$el).find(".post-images").each(function() {
+        //     var img = new Image();
+        //     img.onload = function() {
+        //         console.log($(this).attr('src') + ' - done!');
+        //     }
+        //     img.src = $(this).attr('src');
+        // })
     }
 });
 
