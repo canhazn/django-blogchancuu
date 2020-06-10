@@ -29,6 +29,9 @@ PostList = Vue.component('post-list', {
 Post = Vue.component('post', {
     props: ["post"],
     template: "#post-template",
+    data: {
+        
+    },
     mounted: function () {
         $(".post-content").dotdotdot();
         // $(this.$el).find(".post-images").each(function() {
