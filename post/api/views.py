@@ -5,10 +5,14 @@ from  rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 # Create your views here.
 
-from ..models import Post
-from .serializer import PostSerializer
+from ..models import Post, Tag
+from .serializer import PostSerializer, TagSerializer
 from .pagination import PostLimitOffsetPagination, PostPageNumberPagination
 
+class TagDetail(RetrieveAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    lookup_field = 'slug'
 
 @api_view(['GET'])
 def apiOverView(request):
