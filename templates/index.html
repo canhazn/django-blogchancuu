@@ -6,68 +6,43 @@
 {% block content %}
 <script src="https://unpkg.com/magic-grid@3.1.2/dist/magic-grid.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.0.11/dotdotdot.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-router"></script>
+<script src="https://unpkg.com/vuex"></script>
 <div class="container">
+    <div id="app" v-cloak>        
+        <post-list v-bind:posts="posts"></post-list>
+    </div>
 
-    <!-- Blog Entries Column -->
-    <div class="container-post">
-        {% for post in posts %}
-        <div class="post mb-4 overflow-hidden" data-post-slug="{{ post.slug }}">
-            <!-- post images -->
-            {% if post.images.all.count > 0 %}
-                <div class="w-100 d-flex flex-row">
-                    {% for image in post.images.all %}
-                    <div class="flex-grow-1">
-                        <img class="w-100" src="{{ image.img_file.url }}" />
-                    </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            <!-- end post images -->
+    <template id="post-list-template">
+        <div  class="container-post">
+            <post 
+                v-for="post in posts"
+                v-bind:post="post"
+                :key="post.slug"
+            ></post>
+         
+        </div>
+    </template>
 
-            {% if post.title %}
-            <h2 class="post-title">{{ post.title }}</h2>
-            {% endif %}
+    <template id="post-template">
+        <div class="post mb-4 overflow-hidden">
 
-
-            <div class="post-content">{{ post.content| safe }}</div>
-
-            <!-- post tag -->
-            {% if post.tag.all.count %}
-            <div class="p-3">
-                <div class="tags">
-                    {% for tag in post.tag.all %}
-                    <a href="{% url 'tag_detail' tag.slug %}"
-                        class="tag badge badge-pill badge-dark font-weight-normal">{{ tag }}</a>
-                    {% endfor %}
+            <div class="w-100 d-flex flex-row" v-if="post.images.length">                
+                <div class="flex-grow-1">
+                    <img class="w-100 post-images" v-for="image in post.images" :key="image.url" v-bind:src="image.url" />
                 </div>                
             </div>
-            {% endif %}
-            <!-- end post tag -->
+
+
+            <h2 class="post-title" v-html="post.title"></h2>
+            <div class="post-content" v-html="post.content"></div>
+
+            <div class="tags p-3" v-if="post.tags.length > 0">            
+                <a class="tag badge badge-pill badge-dark font-weight-normal mr-3" v-for="tag in post.tags" :key="tag.slug" v-bind:href="'tag/' + tag.slug" v-html="tag.title"></a>
+            </div>
         </div>
-        {% endfor %}
-    </div>
+    </template>
 </div>
-
-<script>
-    let magicGrid = new MagicGrid({
-        container: '.container-post',
-        animate: true,
-        gutter: 15,
-        static: true,
-        useMin: true
-    });
-
-    magicGrid.listen();
-
-    $(".post-content").dotdotdot();
-
-    $('.post').click(function (event) {
-        let slug = $(this).data().postSlug;
-
-        if (!event.target.className.includes('tag')) {
-            window.location.href = slug
-        }
-    });
-
-</script>
+<script src="{% static 'js/index.js' %}"></script>
 {%endblock%}
