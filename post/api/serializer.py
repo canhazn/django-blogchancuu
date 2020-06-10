@@ -7,10 +7,8 @@ class TagSerializer(ModelSerializer):
         fields = '__all__'
         
 class PostSerializer(ModelSerializer):
-
-    # tags = TagSerializer(many=False, read_only=True)
-    tag = TagSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = ['tag', 'title', 'slug', 'content', 'created_on']
+        fields = ['tags', 'title', 'slug', 'content', 'created_on']
