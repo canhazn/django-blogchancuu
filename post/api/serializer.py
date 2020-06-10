@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer
 class TagSerializer(ModelSerializer):
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = ['title', 'slug']
         
 class PostSerializer(ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
