@@ -4,7 +4,14 @@ from django.contrib import admin
 from .models import Post, Comment, Tag, Image
 from django_summernote.admin import SummernoteModelAdmin
 from django.utils.html import format_html
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
+
+class TagResource(resources.ModelResource):
+
+    class Meta:
+        model = Tag
 
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
@@ -31,9 +38,10 @@ class CommentAdmin(admin.ModelAdmin):
 
 admin.site.register(Comment, CommentAdmin)
 
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(ImportExportModelAdmin):
     list_display = ('title', 'created_on')
     prepopulated_fields = {'slug': ('title', )}
+    resource_class = TagResource
 
 admin.site.register(Tag, TagAdmin)
 
